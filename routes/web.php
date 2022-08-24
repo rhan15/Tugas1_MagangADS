@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// Route::get('/home', fn () => view('home'));
+// Route::get('/about', fn () => view('about'));
+// Route::get('/gallery', fn () => view('gallery'));
+
+//Route::get('/', [WelcomeController::class, 'welcome']);
+Route::get('/', WelcomeController::class);
+Route::get('/home', HomeController::class);
+Route::get('/about', [PageController::class, 'about']);
+Route::get('/gallery', [PageController::class, 'gallery']);
+
+Route::get('users', [UserController::class, 'index']);
+Route::get('users/{user}', [UserController::class, 'show']);
+
 
 Route::get('user',function(){
     return 'Hello '. request('name');
@@ -26,6 +43,8 @@ Route::get('user',function(){
 // });
 
 Route::get('/user/{user}', fn ($user) => "My name is {$user}")->whereAlphaNumeric('user');
+
+
 
 Route::get('/user/{id}/{name}', function ($id, $name) {
     return "My id is {$id} and my name is {$name}";
@@ -41,6 +60,33 @@ Route::prefix('posts')->group(function(){
 // Route::get('/about', fn() => 'About')->name('about');
 // Route::get('/contact', fn() => 'Contact')->name('contact');
 
-Route::get('/home', fn () => view('home'));
-Route::get('/about', fn () => view('about'));
-Route::get('/gallery', fn () => view('gallery'));
+
+
+// Route::get('users', function () {
+//     $users = [
+//         [
+//             'name'      => 'John Doe',
+//             'email'     => 'john@mail.com',
+//             'twitter'   => 'johndoe'
+//         ],
+//         [
+//             'name'      => 'Tailor Otwell',
+//             'email'     => 'tailor@mail.com',
+//             'twitter'   => 'tailorott'
+//         ],
+//         [
+//             'name'      => 'Steve Schoger',
+//             'email'     => 'steve@mail.com',
+//             'twitter'   => 'steveschoger',
+//         ],
+//     ];
+
+//     return view('users.index', [
+//         'users' => $users,
+//     ]);
+// });
+
+Route::get('/dashboard', fn () => 'dashboard')
+->name('dashboard')
+->middleware('kmkey');  
+

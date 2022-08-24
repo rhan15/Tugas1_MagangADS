@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'kmKey' => env('KM_KEY','default'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -212,4 +214,5 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    
 ];
