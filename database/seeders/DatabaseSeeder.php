@@ -3,7 +3,13 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Product;
+use App\Models\ProductReview;
+use App\Models\Store;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,5 +26,27 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        
+        User::truncate();
+        Store::truncate();
+        Product::truncate();
+        ProductReview::truncate();
+        
+        
+        $UserQuantity = 50;
+        $StoreQuantity = 500;
+        $ProductQuantity = 115;
+        $ProductReviewQuantity = 150;
+        
+        User::factory($UserQuantity)->create();
+        
+        Store::factory($StoreQuantity)->create();
+        Product::factory($ProductQuantity)->create();
+        ProductReview::factory($ProductReviewQuantity)->create();
+            
     }
+
 }
