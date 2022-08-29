@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,26 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = [
-        //     [
-        //         'name'      => 'John Doe',
-        //         'email'     => 'john@mail.com',
-        //         'twitter'   => 'johndoe'
-        //     ],
-        //     [
-        //         'name'      => 'Tailor Otwell',
-        //         'email'     => 'tailor@mail.com',
-        //         'twitter'   => 'tailorott'
-        //     ],
-        //     [
-        //         'name'      => 'Steve Schoger',
-        //         'email'     => 'steve@mail.com',
-        //         'twitter'   => 'steveschoger',
-        //     ],
-        // ];
-    
-        return view('users.index', [
-            'users' => User::get(),
+        return view('products.index', [
+            'products' => Product::get(),
         ]);
     }
 
@@ -57,15 +39,21 @@ class UserController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'city' => 'required'
+            'slug' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'photo' => 'required',
+            'store_id' => 'required',
         ];
 
         $this->validate($request, $rules);
-        $users = User::create([
+        $products = Product::create([
             'name'  =>  $request->name,
-            'email' =>  $request->email,
-            'city'  =>  $request->city
+            'slug' =>  $request->slug,
+            'price'  =>  $request->price,
+            'description'  =>  $request->description,
+            'photo'  =>  $request->photo,
+            'store_id'  =>  $request->store_id,
         ]);
     }
 
@@ -75,11 +63,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($user)
+    public function show($id)
     {
-        return view('users.show', [
-            'user' => $user,
-        ]);
+        //
     }
 
     /**
@@ -102,10 +88,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        User::find($id)->update([
-            'name'  => $request->name,
-            'email' => $request->email,
-            'city'  => $request->city,
+        Product::find($id)->update([
+            'name'  =>  $request->name,
+            'slug' =>  $request->slug,
+            'price'  =>  $request->price,
+            'description'  =>  $request->description,
+            'photo'  =>  $request->photo,
+            'store_id'  =>  $request->store_id
         ]);
     }
 
@@ -117,7 +106,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();   
+        $user = Product::find($id);
+        $user->delete();
     }
 }
