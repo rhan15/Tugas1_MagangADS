@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,11 @@ Route::get('/gallery', [PageController::class, 'gallery']);
 
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/{user}', [UserController::class, 'show']);
+Route::post('users/create', [UserController::class, 'store'])->name('users.store');
+Route::post('users/{id}/update', [UserController::class, 'update'])->name('users.update');
+Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+Route::get('products', [ProductController::class, 'index']);
 
 
 Route::get('user',function(){

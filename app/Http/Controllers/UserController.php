@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,26 +14,26 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = [
-            [
-                'name'      => 'John Doe',
-                'email'     => 'john@mail.com',
-                'twitter'   => 'johndoe'
-            ],
-            [
-                'name'      => 'Tailor Otwell',
-                'email'     => 'tailor@mail.com',
-                'twitter'   => 'tailorott'
-            ],
-            [
-                'name'      => 'Steve Schoger',
-                'email'     => 'steve@mail.com',
-                'twitter'   => 'steveschoger',
-            ],
-        ];
+        // $users = [
+        //     [
+        //         'name'      => 'John Doe',
+        //         'email'     => 'john@mail.com',
+        //         'twitter'   => 'johndoe'
+        //     ],
+        //     [
+        //         'name'      => 'Tailor Otwell',
+        //         'email'     => 'tailor@mail.com',
+        //         'twitter'   => 'tailorott'
+        //     ],
+        //     [
+        //         'name'      => 'Steve Schoger',
+        //         'email'     => 'steve@mail.com',
+        //         'twitter'   => 'steveschoger',
+        //     ],
+        // ];
     
         return view('users.index', [
-            'users' => $users,
+            'users' => User::get(),
         ]);
     }
 
@@ -54,7 +55,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'city' => 'required'
+        ];
+
+        $this->validate($request, $rules);
+        $users = User::create([
+            'name'  =>  $request->name,
+            'email' =>  $request->email,
+            'city'  =>  $request->city
+        ]);
     }
 
     /**
@@ -90,7 +102,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        User::find($id)->update([
+            'name'  => $request->name,
+            'email' => $request->email,
+            'city'  => $request->city,
+        ]);
     }
 
     /**
@@ -101,6 +117,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();   
     }
 }
