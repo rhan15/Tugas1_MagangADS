@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,16 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/home', fn () => view('home'));
 // Route::get('/about', fn () => view('about'));
 // Route::get('/gallery', fn () => view('gallery'));
+
+// Route::get('/data', function () {
+//     return view('datatable', [
+//         'products' => Product::get(),
+
+//     ]);
+
+// });
+
+Route::get('/data', [PageController::class, 'dataProduct']);
 
 //Route::get('/', [WelcomeController::class, 'welcome']);
 Route::get('/', WelcomeController::class);

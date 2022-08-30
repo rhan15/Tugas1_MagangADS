@@ -13,6 +13,9 @@ class PageController extends Controller
     public function gallery(){
         return view('gallery');
     }
+    public function dataProduct(){
+        return view('datatable');
+    }
     /**
      * Display a listing of the resource.
      *
