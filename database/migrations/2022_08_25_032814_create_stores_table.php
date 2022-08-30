@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
-            $table->string('name',45);
+            $table->string('store_name',45);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

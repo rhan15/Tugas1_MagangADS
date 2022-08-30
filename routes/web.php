@@ -34,7 +34,8 @@ use Illuminate\Support\Facades\Route;
 
 // });
 
-Route::get('/data', [PageController::class, 'dataProduct']);
+Route::get('/data', [PageController::class, 'dataProduct'])->name('datatable');
+//Route::get('/' , [DataTableController::class, 'index'])->name('datatable.index');
 
 //Route::get('/', [WelcomeController::class, 'welcome']);
 Route::get('/', WelcomeController::class);
@@ -44,9 +45,9 @@ Route::get('/gallery', [PageController::class, 'gallery']);
 
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/{user}', [UserController::class, 'show']);
-Route::post('users/create', [UserController::class, 'store'])->name('users.store');
-Route::post('users/{id}/update', [UserController::class, 'update'])->name('users.update');
-Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+//Route::post('users/create', [UserController::class, 'store'])->name('users.store');
+//Route::post('users/{id}/update', [UserController::class, 'update'])->name('users.update');
+//Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 Route::get('products', [ProductController::class, 'index']);
 

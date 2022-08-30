@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class PageController extends Controller
 {
@@ -14,8 +16,29 @@ class PageController extends Controller
         return view('gallery');
     }
     public function dataProduct(){
+        $data = Product::get();
+
+        // if (request()->ajax()) {
+        //     return DataTables::of($data)->addIndexColumn()->addColumn('email', function($item) {
+        //             return $item->user->email;
+        //         })  
+        //         ->make(true);
+        // }
+
+        // return view('datatable');
+
+        if (request()->ajax()) {
+            return DataTables::of($data)->addIndexColumn()->addColumn('store_name', function($item) {
+                return $item->store->store_name;
+            })
+            ->make(true);
+        }
         return view('datatable');
+        
     }
+
+
+    
     /**
      * Display a listing of the resource.
      *

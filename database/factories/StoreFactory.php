@@ -18,7 +18,7 @@ class StoreFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
+            'store_name' => fake()->name(),
             'user_id' => $this->faker->unique(true)->numberBetween(1, User::count()),
             
         ];
